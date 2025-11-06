@@ -1,2 +1,25 @@
-# day2_example_pkgs
-Example ROS packages used in Day 3 of the ROS workshops.
+These packages are used in day 3 of the ROS workshops.
+
+
+## Build Steps
+1. Make your workspace directory and enter it
+```
+mkdir -p colcon_ws/src
+cd colcon_ws/
+```
+2. Acquire the source files. Clone this repository using git.
+```
+git clone https://github.com/Hyperloop-VCU/day3_ros_packages.git src/
+```
+3. Install the package's dependencies
+```
+rosdep install --from-paths src --ignore-src -r -y
+```
+4. Build the package using colcon
+```
+colcon build --symlink-install
+```
+5. Source the install source file to tell ROS about your new packages
+```
+source install/setup.bash
+```
