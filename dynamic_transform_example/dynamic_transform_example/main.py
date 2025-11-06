@@ -13,7 +13,6 @@ class ExampleTfBroadcaster(Node):
         self.timer = self.create_timer(0.01, self.broadcast_transform)
         self.radius = 2.0
         self.revs_per_sec = 0.1
-        self.z_angle = 0.0
 
     def broadcast_transform(self):
         t = TransformStamped()
@@ -21,14 +20,13 @@ class ExampleTfBroadcaster(Node):
         t.header.frame_id = 'world'
         t.child_frame_id = 'base_link'
 
+        # Publish a transform from world to base_link to make it rotate around a circle
         theta = 2*pi*time()*self.revs_per_sec
-
         t.transform.translation.x = self.radius * cos(theta)
-        t.transform.translation.y = self.radius * sin(theta) * cos(self.z_angle)
-        t.transform.translation.z = self.radius * sin(theta) * sin(self.z_angle)
+        t.transform.translation.y = self.radius * sin(theta)
+        t.transform.translation.z = 0.0
         t.transform.rotation.z = sin(theta/2)
         t.transform.rotation.w = cos(theta/2)
-
         self.broadcaster.sendTransform(t)
 
 def main():
